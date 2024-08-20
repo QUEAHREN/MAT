@@ -1,0 +1,74 @@
+# general settings
+name: MAT_HSERGB
+model_type: TestImageEventRestorationModel
+scale: 1
+num_gpu: 1 # set num_gpu: 0 for cpu mode
+manual_seed: 10
+
+# dataset and data loader settings
+datasets:
+  test:
+    name: HS_ERGB_CDS-h5-test
+    type: SingleH5ImageDataset
+
+    # dataroot: ./datasets/test
+    dataroot: /data/Low_level_datasets/HS_ERGB_CDS/test 
+
+    # add
+    norm_voxel: true
+    return_voxel: true
+    return_gt_frame: true
+    return_mask: false 
+    use_mask: false 
+
+    crop_size: ~
+    use_flip: false
+    use_rot: false
+    io_backend:
+      type: h5
+
+
+dataset_name: HSERGB
+
+# network structures
+network_g:
+  type: MAT
+  inp_channels: 3
+  out_channels: 3
+  dim: 48
+  num_blocks: [8,8,7]
+  num_refinement_blocks: 2
+  heads: [1,2,4]
+  ffn_expansion_factor: 2.66
+  bias: False
+  LayerNorm_type: WithBias
+
+# path
+path:
+  pretrain_network_g: ./pretrained_models/net_g_hsergb.pth
+  strict_load_g: False
+  resume_state: ~
+  root: /data/Experiments_Deblur/final/  # set this option ONLY in TEST!!!
+
+# validation settings
+val:
+  save_img: true
+  grids: ~
+  crop_size: 128
+  rgb2bgr: false # to my h5 data, its false
+  metrics:
+    psnr:
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+    
+    ssim:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: false   
+
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

@@ -1,0 +1,134 @@
+# general settings
+name: MAT_GoPro_train
+model_type: ImageEventRestorationModel
+scale: 1
+num_gpu:  4 # 4x 3090
+manual_seed: 10
+
+datasets:
+  train:
+    name: gopro-h5-train
+    type: SingleH5ImageDataset
+    # type: H5ImageDataset
+
+    dataroot: /data/Low_level_datasets/GOPRO/GOPRO_CS/train
+    # keep true if use events
+    norm_voxel: true
+    return_voxel: true
+
+    return_mask: false
+    use_mask: false
+
+    filename_tmpl: '{}'
+    io_backend:
+      type: h5
+
+    crop_size: 128
+    use_flip: true
+    use_rot: true
+
+    # data loader settings
+    use_shuffle: true
+    num_worker_per_gpu: 4
+    batch_size_per_gpu: 5 # 5 for 3090, 2 for 1080ti
+    dataset_enlarge_ratio: 4  # accelarate, equals to the num_gpu
+    prefetch_mode: cpu
+    num_prefetch_queue: 2
+
+  val:
+    name: gopro-h5-test
+    type: SingleH5ImageDataset
+    # type: H5ImageDataset
+    # dataroot: ./datasets/test
+    dataroot: /data/Low_level_datasets/GOPRO/GOPRO_CS/test # for debug
+
+    norm_voxel: true  
+    return_voxel: true
+    return_mask: false 
+    use_mask: false
+
+    io_backend:
+      type: h5
+    
+    crop_size: ~
+    use_flip: false
+    use_rot: false
+
+dataset_name: GoPro
+
+# network structures
+network_g:
+  type: MAT
+  inp_channels: 3
+  out_channels: 3
+  dim: 48
+  # small
+  num_blocks: [8,8,7]
+  num_refinement_blocks: 2
+  heads: [1,2,4]
+  ffn_expansion_factor: 2.66
+  bias: False
+  LayerNorm_type: WithBias
+  dual_pixel_task: False
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+  training_states: ~ # save current trainig model states, for resume
+  log: /output/
+  root: /model/Deblur
+
+# training settings
+train:
+  optim_g:
+    type: AdamW
+    lr: !!float 5e-4
+    weight_decay: !!float 1e-4
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: TrueCosineAnnealingLR
+    T_max: 320000
+    eta_min: !!float 1e-7
+
+  total_iter: 320000 #120000
+  warmup_iter: -1 # no warm up
+
+  # losses
+  pixel_opt:
+    type: CharbonnierLoss
+
+# validation settings
+val:
+  val_freq: !!float 7e5 # 2e4
+  save_img: false  
+  grids: ~  
+  crop_size: ~ 
+  max_minibatch: 8  
+
+  metrics:
+    psnr:
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+    
+    ssim:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: false   
+
+# logging settings
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 6.6e4
+  use_tb_logger: true
+  wandb:
+    project: Event_Video_Deblur
+    # resume_id: x
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500
