@@ -1,6 +1,6 @@
-# MAT [AAAI 2025]
+# MAT: Motion-adaptive Transformer for Event-based Image Deblurring [AAAI 2025]
 
-## Motion-adaptive Transformer for Event-based Image Deblurring
+## Abstract
 
 > Event cameras, which capture pixel-level brightness changes asynchronously, provide rich motion information that is often missed during traditional frame-based camera exposures, thereby offering fresh perspectives for motion deblurring. Although current approaches incorporate event intensity, they neglect essential spatial motion information. Unlike their CNN architectures, Transformers excel in modeling long-range dependencies but struggle with establishing relevant non-local connections in sparse events and fail to highlight significant interactions in dense images. To address these limitations, we introduce a Motion-Adaptive Transformer network (MAT) that utilizes spatial motion information to forge robust global connections. The core design is an Adaptive Motion Mask Predictor (AMMP) that identifies key motion regions, guiding the Motion-Sparse Attention (MSA) to eliminate irrelevant event tokens and enabling the Motion-Aware Attention (MAA) to focus on relevant ones, thereby enhancing long-range dependency modeling. Additionally, we elaborately design a Cross-Modal Intensity Gating mechanism that efficiently merges intensity data across modalities while minimizing parameter use. The learnable Expansion-Controlled Spatial Gating further optimizes the transmission of event features. Comprehensive testing confirms that our approach sets a new benchmark in image deblurring, surpassing previous methods by up to 0.60dB on the GoPro dataset, 1.04dB on the HS-ERGB dataset, and achieving an average improvement of 0.52dB across two real-world datasets.
 
@@ -12,7 +12,7 @@ This is the overview of our network's architecture:
 
 ![image-20241230103001494](https://xusy-1300242514.cos.ap-nanjing.myqcloud.com/img/image-20241230103001494.png)
 
-See more details in  [[paper]]()(TO DO)
+See more details in  [[paper]](https://ojs.aaai.org/index.php/AAAI/article/view/32967).
 
 
 
@@ -38,10 +38,12 @@ If you find our work useful in your research, please consider citing:
 
 ```
 @InProceedings{MAT_2025_AAAI,
-    author    = {Xu, Senyan and Sun, Zhijing and Zhong, Mingchen and Cao, Chengzhi and Liu, Yidi and Fu, Xueyang and Chen, Yan},
-    title     = {Motion-adaptive Transformer for Event-based Image Deblurring},
-    booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
-    year      = {2025}
+    author={Xu, Senyan and Sun, Zhijing and Zhong, Mingchen and Cao, Chengzhi and Liu, Yidi and Fu, Xueyang and Chen, Yan},
+    booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+    volume={39},
+    number={9},
+    pages={8942--8950},
+    year={2025}
 }
 ```
 
