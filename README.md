@@ -14,7 +14,10 @@ This is the overview of our network's architecture:
 
 See more details in  [[paper]](https://ojs.aaai.org/index.php/AAAI/article/view/32967).
 
+## TODO
 
+ - [ ] Release the pretrained models.
+ - [x] Release the visual results of MAT.
 
 ## Installation
 
@@ -30,7 +33,9 @@ pip install matplotlib scikit-learn scikit-image opencv-python yacs joblib natso
 pip install einops gdown addict future lmdb numpy pyyaml requests scipy tb-nightly yapf lpips
 ```
 
+## Visual Results
 
+You can download the visual results of our MAT on GoPro, HS-ERGB, REBlur, and REVD datasets in [[GOOGLE DRIVE]](https://drive.google.com/file/d/1nvC9IuGoJrDBVJ_Vxu07tcWmC8TVoTSW/view?usp=sharing).
 
 ## Citation
 
