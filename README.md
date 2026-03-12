@@ -16,7 +16,7 @@ See more details in  [[paper]](https://ojs.aaai.org/index.php/AAAI/article/view/
 
 ## TODO
 
- - [ ] Release the pretrained models.
+ - [ ] Release the pretrained models. 
  - [x] Release the visual results of MAT.
 
 ## Installation
@@ -33,9 +33,9 @@ pip install matplotlib scikit-learn scikit-image opencv-python yacs joblib natso
 pip install einops gdown addict future lmdb numpy pyyaml requests scipy tb-nightly yapf lpips
 ```
 
-## Visual Results
+## Datasets and Visual Results
 
-You can download the visual results of our MAT on GoPro, HS-ERGB, REBlur, and REVD datasets in [[GOOGLE DRIVE]](https://drive.google.com/file/d/1nvC9IuGoJrDBVJ_Vxu07tcWmC8TVoTSW/view?usp=sharing).
+You can download the datasets processed by us in [[HuggingFace]](https://huggingface.co/datasets/RuixuanJiang/Low_Level_Datasets/blob/main/HS_ERGB_CDS.zip) and visual results of our MAT on GoPro, HS-ERGB, REBlur, and REVD datasets in [[GOOGLE DRIVE]](https://drive.google.com/file/d/1nvC9IuGoJrDBVJ_Vxu07tcWmC8TVoTSW/view?usp=sharing).
 
 ## Citation
 
